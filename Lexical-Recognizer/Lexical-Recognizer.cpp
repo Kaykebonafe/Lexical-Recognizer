@@ -37,14 +37,14 @@ string frase = "";
 string tempC = "";
 int tempN = 0;
 string tempS = "";
-string tabPalavrasReservadas[TAM] = { "IF", "THEN", "ELSE", "GOTO", "LET", "END", "PRINT", "READ", "OF" };
+char tabPalavrasReservadas[9][6] = { "IF", "THEN", "ELSE", "GOTO", "LET", "END", "PRINT", "READ", "OF" };
 string tabela[TAM];
 int tamTabela = 0;
 
 //Variáveis de checagem
 string alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 string numeros = "0123456789";
-string sinais = "();:><=,+-*/";
+string sinais = "();:><=,+-*/{}[].?!@#$¨¬&*_§ªº''#";
 
 //Indice do caracter numa frase
 int p = 0;
@@ -57,6 +57,14 @@ string strAux = "";
 void imprimeTabela() {
     for (int i = 0; i < tamTabela; i++) {
         cout << i << " ... " << tabela[i] << endl;
+
+    }
+
+}
+
+void imprimeTabelaReservadas() {
+    for (int i = 0; i < sizeof(tabPalavrasReservadas) / sizeof(tabPalavrasReservadas[0]); i++) {
+        cout << i << " ... " << tabPalavrasReservadas[i] << endl;
 
     }
 
@@ -128,6 +136,8 @@ void e0() {
     else if (strAux == "fim") {
         cout << endl;
         imprimeTabela();
+        cout << endl;
+        imprimeTabelaReservadas();
         cout << endl;
 
     }
@@ -240,12 +250,10 @@ void e5() {
 
 //Função que representa o estado 6
 void e6() {
-    while (frase[p] != '0') {
+    while (frase[p] != 0) {
         p++;
-        e6();
 
     }
-
     e0();
 
 }
@@ -263,32 +271,48 @@ void sigma2() {
 }
 
 //Função sigma 3
-void sigma3() {
-    if (tamTabela > 0) {
-        bool existe = false;
-        int i = 0;
-        for (i = 0; i < tamTabela; i++) {
-            if (tempS == tabela[i]) {
-                existe = true;
-                break;
-            }
+void sigma3() {   
+    bool check = false;
+    for (int i = 0; i < sizeof(tabPalavrasReservadas) / sizeof(tabPalavrasReservadas[0]); i++) {
+        if (tempS == tabPalavrasReservadas[i]) {
+            check = true;
+            cout << "P(" << i << ")";
 
         }
 
-        if (existe)
-            cout << "V(" << i << ")";
+    }
+    
+    if (!check) {
+        if (tamTabela > 0) {
+            bool existe = false;
+            int i = 0;
+            for (i = 0; i < tamTabela; i++) {
+                if (tempS == tabela[i]) {
+                    existe = true;
+                    break;
 
+                }
+
+            }
+
+            if (existe)
+                cout << "V(" << i << ")";
+
+            else {
+                tabela[tamTabela] = tempS;
+                cout << "V(" << tamTabela << ")";
+                tamTabela++;
+
+            }
+
+        }
         else {
             tabela[tamTabela] = tempS;
             cout << "V(" << tamTabela << ")";
             tamTabela++;
 
         }
-    }
-    else {
-        tabela[tamTabela] = tempS;
-        cout << "V(" << tamTabela << ")";
-        tamTabela++;
+    
     }
 
 }
