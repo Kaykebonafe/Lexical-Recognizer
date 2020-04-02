@@ -55,6 +55,7 @@ string strAux = "";
 
 //Função auxiliar para imprimir a tabela
 void imprimeTabela() {
+    cout << endl << "Tabela de Variáveis" << endl;
     for (int i = 0; i < tamTabela; i++) {
         cout << i << " ... " << tabela[i] << endl;
 
@@ -63,7 +64,8 @@ void imprimeTabela() {
 }
 
 void imprimeTabelaReservadas() {
-    for (int i = 0; i < sizeof(tabPalavrasReservadas) / sizeof(tabPalavrasReservadas[0]); i++) {
+    cout << "Tabela de Palavra Reservadas" << endl;
+    for (int i = 0; i < sizeof(tabPalavrasReservadas) / sizeof(tabPalavrasReservadas[0]); i++) {  
         cout << i << " ... " << tabPalavrasReservadas[i] << endl;
 
     }
